@@ -2,10 +2,16 @@
   <div class="baseBeverage"></div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed } from "vue";
+import { useBeverageStore } from "../stores/beverageStore";
+const beverageStore = useBeverageStore();
+const bgColor = computed(() => beverageStore.currentBase?.color || "#8B4513");
+</script>
 
 <style scoped>
 .baseBeverage {
+  background-color: v-bind(bgColor);
   position: relative;
   width: 100%;
   height: 100%;

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <Beverage :isIced="beverageStore.currentTemp === 'Cold'" />
+    <Beverage 
+    :isIced="beverageStore.currentTemp === 'Cold'" 
+    :creamerSelected="beverageStore.currentCreamer?.name !== 'No Cream'"
+    :syrupSelected="beverageStore.currentSyrup?.name !== 'No Syrup'" />
     <ul>
       <li>
         <template v-for="temp in beverageStore.temps" :key="temp">
@@ -16,6 +19,48 @@
           </label>
         </template>
       </li>
+      <li>
+        <template v-for="base in beverageStore.bases" :key="base.name">
+          <label>
+            <input
+              type="radio"
+              name="base"
+              :id="`r${base}`"
+              :value="base"
+              v-model="beverageStore.currentBase"
+            />
+            {{ base.name }}
+          </label>
+        </template>
+      </li>
+      <li>
+        <template v-for="creamer in beverageStore.creamers" :key="creamer.name">
+          <label>
+            <input
+              type="radio"
+              name="creamer"
+              :id="`r${creamer}`"
+              :value="creamer"
+              v-model="beverageStore.currentCreamer"
+            />
+            {{ creamer.name }}
+          </label>
+        </template>
+      </li>
+      <li>
+        <template v-for="syrup in beverageStore.syrups" :key="syrup.name">
+          <label>
+            <input
+              type="radio"
+              name="syrup"
+              :id="`r${syrup}`"
+              :value="syrup"
+              v-model="beverageStore.currentSyrup"
+            />
+            {{ syrup.name }}
+          </label>
+        </template>
+      </li>
     </ul>
     <input type="text" placeholder="Beverage Name" />
     <button>🍺 Make Beverage</button>
@@ -27,6 +72,9 @@
 import Beverage from "./components/Beverage.vue";
 import { useBeverageStore } from "./stores/beverageStore";
 const beverageStore = useBeverageStore();
+console.log("temps:", beverageStore.temps);
+console.log("creamers:", beverageStore.creamers);
+console.log("currentCreamer:", beverageStore.currentCreamer);
 </script>
 
 <style lang="scss">
