@@ -62,19 +62,21 @@
         </template>
       </li>
     </ul>
-    <input type="text" placeholder="Beverage Name" />
-    <button>🍺 Make Beverage</button>
+    <input type="text" placeholder="Beverage Name" v-model="beverageStore.beverageName" />
+    <button @click="beverageStore.makeBeverage(beverageStore.beverageName)">🍺 Make Beverage</button>
   </div>
-  <div id="beverage-container" style="margin-top: 20px"></div>
+  <div id="beverage-container" style="margin-top: 20px">
+    <template v-for="beverage in beverageStore.beverages" :key="beverage.name">
+      <button @click="beverageStore.showBeverage(beverage)"> {{ beverage.name }}</button>
+    </template>
+
+  </div>
 </template>
 
 <script setup lang="ts">
 import Beverage from "./components/Beverage.vue";
 import { useBeverageStore } from "./stores/beverageStore";
 const beverageStore = useBeverageStore();
-console.log("temps:", beverageStore.temps);
-console.log("creamers:", beverageStore.creamers);
-console.log("currentCreamer:", beverageStore.currentCreamer);
 </script>
 
 <style lang="scss">
