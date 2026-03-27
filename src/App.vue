@@ -62,12 +62,17 @@
         </template>
       </li>
     </ul>
-    <input type="text" placeholder="Beverage Name" v-model="beverageStore.beverageName" />
-    <button @click="beverageStore.makeBeverage(beverageStore.beverageName)">🍺 Make Beverage</button>
+    <div class="beverage-maker">
+      <input type="text" placeholder="Beverage Name" v-model="beverageStore.beverageName" />
+      <button @click="beverageStore.makeBeverage(beverageStore.beverageName)">🍺 Make Beverage</button>
+    </div>
   </div>
-  <div id="beverage-container" style="margin-top: 20px">
+  <div class="beverage-container" style="margin-top: 20px">
     <template v-for="beverage in beverageStore.beverages" :key="beverage.name">
-      <button @click="beverageStore.showBeverage(beverage)"> {{ beverage.name }}</button>
+      <ul>
+        <button @click="beverageStore.showBeverage(beverage)"> {{ beverage.name }}</button>
+        <button @click="beverageStore.deleteBeverage(beverage.name)"> Delete </button>
+      </ul>
     </template>
 
   </div>
@@ -92,5 +97,35 @@ html {
 }
 ul {
   list-style: none;
+
+    li {
+      display: flex;
+      padding: 10px;
+      justify-content: center;
+
+      label {
+        font-size: 1.2em;
+        margin: 10px;
+        color: #ffffff;
+      }
+    }
+}
+.beverage-maker {
+  display: flex;
+  justify-content: center;
+  input {
+    margin-right: 10px;
+  }
+}
+.beverage-container {
+  ul {
+    display: flex;
+    justify-content: center;
+    button {
+      margin: 0 5px;
+      padding: 5px 10px;
+      font-size: 1em;
+    }
+  }
 }
 </style>

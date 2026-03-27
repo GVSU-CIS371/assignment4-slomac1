@@ -35,17 +35,20 @@ export const useBeverageStore = defineStore("BeverageStore", {
         creamer: this.currentCreamer.name,
         syrup: this.currentSyrup.name,
       };
-      console.log("Making beverage:", newBeverage);
       this.beverages.push(newBeverage);
-
     },
+
     showBeverage(selectedBeverage: Beverage) {
       this.currentTemp = selectedBeverage.temp;
       this.currentBase = this.bases.find(a => a.name === selectedBeverage.base) || this.bases[0];
       this.currentCreamer = this.creamers.find(a => a.name === selectedBeverage.creamer) || this.creamers[0];
       this.currentSyrup = this.syrups.find(a => a.name === selectedBeverage.syrup) || this.syrups[0];
-      console.log("Showing beverage:", selectedBeverage);
     },
+
+    deleteBeverage(beverageName: string) {
+      this.beverages = this.beverages.filter(bev => bev.name !== beverageName);
+    },
+    
   },
   persist: true,
 });
