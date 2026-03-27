@@ -7,9 +7,21 @@ import syrups from "../data/syrups.json";
 interface Beverage {
   name: string;
   temp: string;
-  base: string;
-  creamer: string;
-  syrup: string;
+  base: {
+    id: string,
+    name: string,
+    color: string
+  }
+  creamer: {
+    id: string,
+    name: string,
+    color: string
+  };
+  syrup: {
+    id: string,
+    name: string,
+    color: string
+  };
 };
 
 export const useBeverageStore = defineStore("BeverageStore", {
@@ -31,24 +43,24 @@ export const useBeverageStore = defineStore("BeverageStore", {
       const newBeverage: Beverage = {
         name: beverageName,
         temp: this.currentTemp,
-        base: this.currentBase.name,
-        creamer: this.currentCreamer.name,
-        syrup: this.currentSyrup.name,
+        base: this.currentBase,
+        creamer: this.currentCreamer,
+        syrup: this.currentSyrup,
       };
       this.beverages.push(newBeverage);
     },
 
     showBeverage(selectedBeverage: Beverage) {
       this.currentTemp = selectedBeverage.temp;
-      this.currentBase = this.bases.find(a => a.name === selectedBeverage.base) || this.bases[0];
-      this.currentCreamer = this.creamers.find(a => a.name === selectedBeverage.creamer) || this.creamers[0];
-      this.currentSyrup = this.syrups.find(a => a.name === selectedBeverage.syrup) || this.syrups[0];
+      this.currentBase = selectedBeverage.base;
+      this.currentCreamer = selectedBeverage.creamer;
+      this.currentSyrup = selectedBeverage.syrup;
     },
 
     deleteBeverage(beverageName: string) {
       this.beverages = this.beverages.filter(bev => bev.name !== beverageName);
     },
-    
+
   },
   persist: true,
 });
